@@ -12,4 +12,4 @@ TRCal = 49us
 DR = 64/3
 TRext = 0
 
-Homepage of the Lab[http://www.sensornet.cn/]
+[Homepage of the Lab](http://www.sensornet.cn/)
