@@ -1,0 +1,119 @@
+;/************************************************************************************************************************************/
+;/**
+; * @file		TxFM0.asm
+; * @brief		RFID Transmit in FM0
+; * @details
+; *
+; * @author		Justin Reina, UW Sensor Systems Lab
+; * @created
+; * @last rev	
+; *
+; *	@notes
+; *	@todo
+; *	@calling	extern void TxFM0(volatile uint8_t *data,uint8_t numBytes,uint8_t numBits,uint8_t TRext)
+; */
+;/************************************************************************************************************************************/
+
+;/INCLUDES----------------------------------------------------------------------------------------------------------------------------
+    .cdecls C,LIST, "../globals.h"
+    .cdecls C,LIST, "rfid.h"
+    .include "../internals/NOPdefs.asm"; Definitions of NOPx MACROs...
+    .global TxClock, RxClock
+
+
+;/Begin ASM Code----------------------------------------------------------------------------------------------------------------------
+	.def  TxFM0
+
+TxFM0:
+	BIS.B #PIN_TX, &PTXDIR
+	BIS.B #PIN_LED1, &PDIR_LED1
+	BIS.B #PIN_LED1, &PLED1OUT
+
+	CALLA #TxClock
+
+    BIS.B   #PIN_TX, &PTXOUT		;[4] HIGH on PTXOUT.PIN_TX       /*HH*/
+    NOPx9							;[4] 4 timing cycles
+    BIC.B   #PIN_TX, &PTXOUT		;[4] HIGH on PTXOUT.PIN_TX       /*LH*/
+    NOPx3							;[5] 5 timing cycles
+    BIS.B   #PIN_TX, &PTXOUT		;[4] HIGH on PTXOUT.PIN_TX
+    NOPx3							;[5] 5 timing cycles
+    BIC.B   #PIN_TX, &PTXOUT		;[4] HIGH on PTXOUT.PIN_TX       /*LL*/
+    NOPx10
+    BIS.B   #PIN_TX, &PTXOUT		;[4] HIGH on PTXOUT.PIN_TX       /*HL*/
+    NOPx3							;[5] 5 timing cycles
+    BIC.B   #PIN_TX, &PTXOUT		;[4] HIGH on PTXOUT.PIN_TX
+    NOPx3							;[5] 5 timing cycles
+    BIC.B   #PIN_TX, &PTXOUT		;[4] HIGH on PTXOUT.PIN_TX       /*LL*/
+    NOPx10
+    BIS.B   #PIN_TX, &PTXOUT		;[4] HIGH on PTXOUT.PIN_TX       /*HH*/
+    NOPx10
+    
+	BIC.B   #PIN_TX, &PTXOUT
+	NOPx9
+	BIS.B   #PIN_TX, &PTXOUT
+	NOPx10
+	BIC.B   #PIN_TX, &PTXOUT
+	NOPx10
+	BIS.B   #PIN_TX, &PTXOUT
+	NOPx10
+	BIC.B   #PIN_TX, &PTXOUT
+	NOPx9
+	BIS.B   #PIN_TX, &PTXOUT
+	NOPx10
+	BIC.B   #PIN_TX, &PTXOUT
+	NOPx10
+	BIS.B   #PIN_TX, &PTXOUT
+	NOPx9
+
+	BIC.B   #PIN_TX, &PTXOUT
+	NOPx3
+	BIS.B   #PIN_TX, &PTXOUT
+	NOPx3
+
+	BIC.B   #PIN_TX, &PTXOUT
+	NOPx3
+	BIS.B   #PIN_TX, &PTXOUT
+	NOPx3
+
+	BIC.B   #PIN_TX, &PTXOUT
+	NOPx3
+	BIS.B   #PIN_TX, &PTXOUT
+	NOPx3
+
+	BIC.B   #PIN_TX, &PTXOUT
+	NOPx3
+	BIS.B   #PIN_TX, &PTXOUT
+	NOPx3
+
+	BIC.B   #PIN_TX, &PTXOUT
+	NOPx3
+	BIS.B   #PIN_TX, &PTXOUT
+	NOPx3
+
+	BIC.B   #PIN_TX, &PTXOUT
+	NOPx3
+	BIS.B   #PIN_TX, &PTXOUT
+	NOPx3
+
+	BIC.B   #PIN_TX, &PTXOUT
+	NOPx3
+	BIS.B   #PIN_TX, &PTXOUT
+	NOPx3
+
+	BIC.B   #PIN_TX, &PTXOUT
+	NOPx3
+	BIS.B   #PIN_TX, &PTXOUT
+	NOPx3
+
+    BIC.B #PIN_TX, &PTXOUT
+    BIC.B #PIN_LED1, &PLED1OUT
+
+    NOP
+    RETA
+
+    .end ;* End of ASM */
+    
+    
+    
+    
+  
