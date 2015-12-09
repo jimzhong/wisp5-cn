@@ -18,6 +18,8 @@ DR = 64/3
 
 TRext = 0
 
+## Info
+
 [Homepage of the Lab](http://www.sensornet.cn/)
 
 This firmware is base on [wisp5](https://github.com/wisp/wisp5) which is compatible with FCC complaint R420 and R1000.
